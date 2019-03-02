@@ -1,8 +1,8 @@
 #!/usr/bin/node
 
-var readability = require('readability/index');
-var Readability = readability.Readability;
-
+const readability = require('readability/index');
+const path = require('path');
+const Readability = readability.Readability;
 function readFile(filename, encoding, callback) {
   if (filename === '-') {
     // read from stdin
@@ -45,7 +45,7 @@ readFile('-', 'utf8', function (error, input) {
   let reader = new Readability(doc.window.document);
   let article = reader.parse();
   const title = article.title;
-  const cssLoc = 'aboutReader.css';
-  const cssTag = `<link rel="stylesheet" href="${cssLoc}" type="text/css"/>`
+  const cssLoc = path.resolve(__dirname, '../css/aboutReader.css');
+  const cssTag = `<link rel="stylesheet" href="file://${cssLoc}" type="text/css"/>`
   process.stdout.write(`<!DOCTYPE html><html><head>${cssTag}<meta charset="UTF-8"></head><body>  <h1 class="reader-title">${title}</h1><hr>  ${article.content}</body></html>`);
 });
