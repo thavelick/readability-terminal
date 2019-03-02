@@ -12,6 +12,9 @@
     "url": "https://github.com/thavelick/readability-terminal/issues"
   },
   "homepage": "https://github.com/thavelick/readability-terminal#readme",
+  "bin" : {
+    "readability" : "./readabiliby"
+  },
   "dependencies": {
     "jsdom": "^13.2.0",
     "readability": "github:mozilla/readability"
