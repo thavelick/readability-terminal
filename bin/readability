@@ -1,0 +1,51 @@
+#!/usr/bin/node
+
+var readability = require('readability/index');
+var Readability = readability.Readability;
+
+function readFile(filename, encoding, callback) {
+  if (filename === '-') {
+    // read from stdin
+
+    var chunks = [];
+
+    process.stdin.on('data', function (chunk) {
+      chunks.push(chunk);
+    });
+
+    process.stdin.on('end', function () {
+      return callback(null, Buffer.concat(chunks).toString(encoding));
+    });
+  } else {
+    fs.readFile(filename, encoding, callback);
+  }
+}
+
+const baseUrl = process.argv[2];
+readFile('-', 'utf8', function (error, input) {
+  var output, isYaml;
+
+  if (error) {
+    if (error.code === 'ENOENT') {
+      console.error("couldn't open stdin");
+      process.exit(2);
+    }
+
+    console.error(
+      error.message ||
+      String(error));
+
+    process.exit(1);
+  }
+   var JSDOM = require('jsdom').JSDOM;
+  var doc = new JSDOM(
+    input, 
+    {url: baseUrl}
+  );
+  let reader = new Readability(doc.window.document);
+  let article = reader.parse();
+  const title = article.title;
+  const cssLoc = 'aboutReader.css';
+  const cssTag = `<link rel="stylesheet" href="${cssLoc}" type="text/css"/>`
+  process.stdout.write(`<!DOCTYPE html><html><head>${cssTag}<meta charset="UTF-8"></head><body>  <h1 class="reader-title">${title}</h1><hr>  ${article.content}</body></html>`);
+});

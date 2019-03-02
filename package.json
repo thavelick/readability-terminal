@@ -1,0 +1,19 @@
+{
+  "name": "readability-terminal",
+  "version": "1.0.0",
+  "description": "Use mozilla's readability from the command line",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/thavelick/readability-terminal.git"
+  },
+  "author": "Trsitan Havelick",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/thavelick/readability-terminal/issues"
+  },
+  "homepage": "https://github.com/thavelick/readability-terminal#readme",
+  "dependencies": {
+    "jsdom": "^13.2.0",
+    "readability": "github:mozilla/readability"
+  }
+}
