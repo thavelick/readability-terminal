@@ -1,4 +1,4 @@
-#!/usr/bin/node
+#!/usr/bin/env node
 
 const readability = require('readability/index');
 const path = require('path');
