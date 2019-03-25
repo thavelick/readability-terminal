@@ -47,5 +47,6 @@ readFile('-', 'utf8', function (error, input) {
   const title = article.title;
   const cssLoc = path.resolve(__dirname, '../css/aboutReader.css');
   const cssTag = `<link rel="stylesheet" href="file://${cssLoc}" type="text/css"/>`
-  process.stdout.write(`<!DOCTYPE html><html><head>${cssTag}<meta charset="UTF-8"></head><body>  <h1 class="reader-title">${title}</h1><hr>  ${article.content}</body></html>`);
+  const urlTag = `<a class="domain reader-domain" href="${baseUrl}">${baseUrl}</a>`
+  process.stdout.write(`<!DOCTYPE html><html><head>${cssTag}<meta charset="UTF-8"></head><body> ${urlTag} <h1 class="reader-title">${title}</h1><hr>  ${article.content}</body></html>`);
 });
